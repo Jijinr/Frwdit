@@ -6,12 +6,14 @@ import asyncio
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 from pyrogram.errors import FloodWait
+from pyrogram.errors.exceptions.bad_request_400 import UserAlreadyParticipant
 from config import Config
 from translation import Translation
 
 FROM = Config.FROM_CHANNEL
 TO = Config.TO_CHANNEL
 FILTER = Config.FILTER_TYPE
+IS_PRIVATE = Config.IS_PRIVATE
 
 @Client.on_message(filters.private & filters.command(["run"]))
 async def run(bot, message):
@@ -27,6 +29,17 @@ async def run(bot, message):
         reply_markup=reply_markup,
         chat_id=message.chat.id
     )
+
+    if IS_PRIVATE:
+        try:
+            chat = await bot.join_chat(FROM)
+        except UserAlreadyParticipant:
+            chat = await bot.get_chat("https://t.me/joinchat/JPbZC1grYvoyMTg1")
+        except Exception as e:
+            await message.reply(e)
+            return
+        FROM = chat.id
+
     async for message in bot.USER.search_messages(chat_id=FROM,offset=Config.SKIP_NO,limit=Config.LIMIT,filter=FILTER):
         try:
             if message.video:
@@ -50,3 +63,9 @@ async def run(bot, message):
             print(e)
             pass
     await m.edit("<i>Files Successfully Transferred</i>")
+
+    if IS_PRIVATE:
+        try:
+            await chat.leave()
+        except:
+            pass
