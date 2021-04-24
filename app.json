@@ -30,8 +30,12 @@
       "value": ""
     },
     "FROM_CHANNEL": {
-      "description": "enter Channel username Eg:- @abcdefghijk",
+      "description": "enter Channel username or invite link Eg:- @abcdefghijk",
       "value": ""
+    },
+    "IS_PRIVATE": {
+      "description": "the FROM_CHANNEL is Private or Not, Default is False",
+      "value": "False"
     },
     "OWNER_ID": {
       "description": "Enter Your Telegram id",
