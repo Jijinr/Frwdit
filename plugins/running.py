@@ -32,9 +32,9 @@ async def run(bot, message):
 
     if IS_PRIVATE:
         try:
-            chat = await bot.join_chat(FROM)
+            chat = await bot.USER.join_chat(FROM)
         except UserAlreadyParticipant:
-            chat = await bot.get_chat("https://t.me/joinchat/JPbZC1grYvoyMTg1")
+            chat = await bot.USER.get_chat("https://t.me/joinchat/JPbZC1grYvoyMTg1")
         except Exception as e:
             await message.reply(e)
             return
