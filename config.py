@@ -15,7 +15,7 @@ class Config:
     FROM_CHANNEL = os.environ.get("FROM_CHANNEL", None)
     FILTER_TYPE = os.environ.get("FILTER_TYPE", "")
     OWNER_ID = os.environ.get("OWNER_ID", 12345)
-    LIMIT = int(os.environ.get("LIMIT", "25000"))
+    LIMIT = int(os.environ.get("LIMIT", "500000"))
     SKIP_NO = int(os.environ.get("SKIP_NO", "0"))
     SESSION = os.environ.get("SESSION")
     TO_CHANNEL = int(os.environ.get("TO_CHANNEL", 12345))
